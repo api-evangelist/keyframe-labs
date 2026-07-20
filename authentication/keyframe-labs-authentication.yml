@@ -1,0 +1,25 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/keyframe-labs-sessions-openapi-original.json
+docs: https://docs.keyframelabs.com/guides/getting-started/get-your-api-key
+summary:
+  types:
+  - http
+  http_schemes:
+  - bearer
+description: >-
+  The Keyframe Sessions API is authenticated with a bearer API key. Create and
+  manage keys in the Keyframe platform dashboard (https://platform.keyframelabs.com/api-keys);
+  a key is shown only once at creation. Pass the key as an HTTP bearer token in
+  the Authorization header (Authorization: Bearer <api_key>) on every request.
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  in: header
+  header: Authorization
+  format: 'Bearer <api_key>'
+  docs: https://docs.keyframelabs.com/guides/getting-started/get-your-api-key
+  key_management: https://platform.keyframelabs.com/api-keys
+  sources:
+  - openapi/keyframe-labs-sessions-openapi-original.json
