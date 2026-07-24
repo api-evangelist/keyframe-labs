@@ -1,0 +1,297 @@
+openapi: 3.1.0
+info:
+  title: Sessions LLM models Meet bots API
+  version: 1.0.0
+servers:
+- url: https://api.keyframelabs.com/v1
+tags:
+- name: Meet bots
+paths:
+  /sessions:
+    delete:
+      tags:
+      - Meet bots
+      operationId: stopMeetBot
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: bot_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Recall AI bot identifier
+      - $ref: '#/components/parameters/RecallApiKeyHeader'
+      summary: Stop meet bot
+      responses:
+        '200':
+          description: Meet bot stop requested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StopMeetBotResponse'
+        '404':
+          description: Bot not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPExceptionResponse'
+        '502':
+          description: Failed to stop bot
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPExceptionResponse'
+  /meet-bot:
+    post:
+      tags:
+      - Meet bots
+      operationId: createMeetBot
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/RecallApiKeyHeader'
+      summary: Create meet bot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMeetBotRequest'
+      responses:
+        '200':
+          description: Meet bot created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMeetBotResponse'
+        '403':
+          description: Model not allowed for plan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPExceptionResponse'
+              examples:
+                modelNotAllowed:
+                  value:
+                    detail: Plan 'free' does not support model persona-1.5-live
+        '503':
+          description: No capacity available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPExceptionResponse'
+              examples:
+                busy:
+                  value:
+                    detail: Our servers are busy. Please try again in a moment.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPExceptionResponse'
+              examples:
+                internal:
+                  value:
+                    detail: Internal server error
+  /meet-bot/{bot_id}:
+    get:
+      tags:
+      - Meet bots
+      operationId: getMeetBotStatus
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: bot_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Recall AI bot identifier
+      - $ref: '#/components/parameters/RecallApiKeyHeader'
+      summary: Get meet bot status
+      responses:
+        '200':
+          description: Meet bot status returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeetBotStatusResponse'
+        '404':
+          description: Bot not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPExceptionResponse'
+        '502':
+          description: Failed to fetch bot status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPExceptionResponse'
+components:
+  schemas:
+    CreateMeetBotResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - bot_id
+      - meeting_url
+      properties:
+        bot_id:
+          type: string
+          description: Recall AI bot identifier
+        meeting_url:
+          type: string
+          description: URL of the meeting the bot joined
+    HTTPExceptionResponse:
+      type: object
+      additionalProperties: true
+      required:
+      - detail
+      properties:
+        detail:
+          description: Error detail
+          anyOf:
+          - type: string
+          - type: object
+          - type: array
+    StopMeetBotResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - bot_id
+      - status
+      properties:
+        bot_id:
+          type: string
+          description: Recall AI bot identifier
+        status:
+          type: string
+          description: Stop request status
+          enum:
+          - leaving
+    MeetBotStatusResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - bot_id
+      - status
+      properties:
+        bot_id:
+          type: string
+          description: Recall AI bot identifier
+        status:
+          type: string
+          description: Current bot status
+        meeting_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: URL of the meeting associated with the bot
+    CreateMeetBotRequest:
+      description: Request to create a meet bot.
+      oneOf:
+      - title: By Persona ID
+        type: object
+        additionalProperties: false
+        required:
+        - meeting_url
+        - persona_id
+        - bot_name
+        - system_prompt
+        - greeting
+        - voice_id
+        - llm_model_id
+        properties:
+          meeting_url:
+            type: string
+            description: URL of the meeting the bot should join
+          persona_id:
+            type: string
+            description: ID of persona to use
+          bot_name:
+            type: string
+            description: Display name shown for the bot in the meeting
+          system_prompt:
+            type: string
+            description: System prompt for the persona
+          greeting:
+            type: string
+            description: Greeting the bot speaks when it joins the meeting
+          voice_id:
+            type: string
+            description: Voice ID for the persona
+          llm_model_id:
+            type: string
+            description: LLM model ID for the persona
+          stt_max_endpoint_delay_ms:
+            type: integer
+            description: Maximum end-of-utterance delay (ms) for the speech-to-text endpointer
+            minimum: 0
+            default: 1000
+          stt_language_hints:
+            type: array
+            description: BCP-47 language hints for speech-to-text
+            default:
+            - en
+            items:
+              type: string
+      - title: By Persona Slug
+        type: object
+        additionalProperties: false
+        required:
+        - meeting_url
+        - persona_slug
+        - bot_name
+        - system_prompt
+        - greeting
+        - voice_id
+        - llm_model_id
+        properties:
+          meeting_url:
+            type: string
+            description: URL of the meeting the bot should join
+          persona_slug:
+            type: string
+            description: Slug of persona to use
+          bot_name:
+            type: string
+            description: Display name shown for the bot in the meeting
+          system_prompt:
+            type: string
+            description: System prompt for the persona
+          greeting:
+            type: string
+            description: Greeting the bot speaks when it joins the meeting
+          voice_id:
+            type: string
+            description: Voice ID for the persona
+          llm_model_id:
+            type: string
+            description: LLM model ID for the persona
+          stt_max_endpoint_delay_ms:
+            type: integer
+            description: Maximum end-of-utterance delay (ms) for the speech-to-text endpointer
+            minimum: 0
+            default: 1000
+          stt_language_hints:
+            type: array
+            description: BCP-47 language hints for speech-to-text
+            default:
+            - en
+            items:
+              type: string
+  parameters:
+    RecallApiKeyHeader:
+      name: Recall-Api-Key
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Recall AI API key used to spawn and manage the bot
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

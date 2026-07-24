@@ -1,0 +1,104 @@
+openapi: 3.1.0
+info:
+  title: Sessions LLM models Voices API
+  version: 1.0.0
+servers:
+- url: https://api.keyframelabs.com/v1
+tags:
+- name: Voices
+paths:
+  /voices:
+    get:
+      tags:
+      - Voices
+      operationId: listVoices
+      security:
+      - bearerAuth: []
+      summary: List voices
+      responses:
+        '200':
+          description: Voices returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KflVoice'
+  /voices/{voice_id}:
+    get:
+      tags:
+      - Voices
+      operationId: getVoice
+      security:
+      - bearerAuth: []
+      summary: Get voice
+      parameters:
+      - name: voice_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Voice ID
+      responses:
+        '200':
+          description: Voice returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KflVoice'
+        '404':
+          description: Voice not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPExceptionResponse'
+              examples:
+                internal:
+                  value:
+                    detail: Internal server error
+components:
+  schemas:
+    KflVoice:
+      type: object
+      additionalProperties: false
+      required:
+      - voice_id
+      - name
+      - tags
+      - description
+      - voice_settings
+      properties:
+        voice_id:
+          type: string
+          description: Voice ID
+        name:
+          type: string
+          description: Display name for the voice
+        tags:
+          type: array
+          description: Search and categorization tags for the voice
+          items:
+            type: string
+        description:
+          type: string
+          description: Description of the voice
+        voice_settings:
+          type: object
+          additionalProperties: true
+          description: Default voice synthesis settings for this voice
+    HTTPExceptionResponse:
+      type: object
+      additionalProperties: true
+      required:
+      - detail
+      properties:
+        detail:
+          description: Error detail
+          anyOf:
+          - type: string
+          - type: object
+          - type: array
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

@@ -1,0 +1,116 @@
+openapi: 3.1.0
+info:
+  title: LLM models Sessions API
+  version: 1.0.0
+servers:
+- url: https://api.keyframelabs.com/v1
+tags:
+- name: Sessions
+paths:
+  /sessions:
+    post:
+      tags:
+      - Sessions
+      operationId: createSession
+      security:
+      - bearerAuth: []
+      summary: Create session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSessionRequest'
+      responses:
+        '200':
+          description: Session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSessionResponse'
+        '403':
+          description: Model not allowed for plan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPExceptionResponse'
+              examples:
+                modelNotAllowed:
+                  value:
+                    detail: Plan 'free' does not support model persona-1.5-live
+        '503':
+          description: No capacity available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPExceptionResponse'
+              examples:
+                busy:
+                  value:
+                    detail: Our servers are busy. Please try again in a moment.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPExceptionResponse'
+              examples:
+                internal:
+                  value:
+                    detail: Internal server error
+components:
+  schemas:
+    CreateSessionResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - server_url
+      - participant_token
+      - agent_identity
+      properties:
+        server_url:
+          type: string
+          description: WebRTC connection URL
+        participant_token:
+          type: string
+          description: JWT for 'source' participant to pass audio to persona
+        agent_identity:
+          type: string
+          description: Identity of the persona in the WebRTC session
+    CreateSessionRequest:
+      description: Request to create a session.
+      oneOf:
+      - title: By Persona ID
+        type: object
+        additionalProperties: false
+        required:
+        - persona_id
+        properties:
+          persona_id:
+            type: string
+            description: ID of persona to use
+      - title: By Persona Slug
+        type: object
+        additionalProperties: false
+        required:
+        - persona_slug
+        properties:
+          persona_slug:
+            type: string
+            description: Slug of persona to use
+    HTTPExceptionResponse:
+      type: object
+      additionalProperties: true
+      required:
+      - detail
+      properties:
+        detail:
+          description: Error detail
+          anyOf:
+          - type: string
+          - type: object
+          - type: array
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
