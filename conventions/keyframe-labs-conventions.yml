@@ -1,0 +1,38 @@
+generated: '2026-07-19'
+method: derived
+source: >-
+  openapi/keyframe-labs-sessions-openapi-original.json plus
+  docs.keyframelabs.com (getting-started / api-reference). Cross-cutting
+  request/response semantics for the Keyframe Sessions API.
+description: >-
+  How the Keyframe Sessions API behaves across operations: authentication,
+  versioning, the error envelope, and content type. The API is a small REST
+  surface (create session, meeting bots, list voices/LLM models); it does not
+  document idempotency keys, cursor pagination, field expansion, or rate-limit
+  headers, so those are recorded as not-published rather than fabricated.
+base_url: https://api.keyframelabs.com/v1
+api_style: REST over HTTPS, JSON request and response bodies
+authentication:
+  scheme: 'HTTP bearer API key (Authorization: Bearer <api_key>)'
+  docs: https://docs.keyframelabs.com/guides/getting-started/get-your-api-key
+  detail: authentication/keyframe-labs-authentication.yml
+versioning:
+  style: uri-path
+  current: v1
+  detail: lifecycle/keyframe-labs-lifecycle.yml
+idempotency:
+  supported: false
+  note: No idempotency-key header or parameter is documented in the OpenAPI or docs.
+pagination:
+  supported: false
+  note: List endpoints (voices, LLM models) return unpaginated JSON arrays.
+error_envelope:
+  media_type: application/json
+  shape: '{ "detail": "<message>" }'
+  detail: errors/keyframe-labs-problem-types.yml
+rate_limit_signaling:
+  documented: false
+  note: >-
+    Plans define concurrent-session and monthly-minute limits
+    (www.keyframelabs.com/pricing); over-capacity returns HTTP 503, but no
+    rate-limit response headers are documented.

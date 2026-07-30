@@ -1,0 +1,38 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: openapi/keyframe-labs-sessions-openapi-original.json
+description: >-
+  Candidate MCP server for the Keyframe Sessions API, derived one tool per
+  OpenAPI operation. No official hosted/remote Keyframe MCP server was found at
+  time of writing; this is a proposed tool surface, not a published server.
+server:
+  name: keyframe-labs
+  transport: http
+  base_url: https://api.keyframelabs.com/v1
+  auth: bearer
+tools:
+- name: create_session
+  description: Create a real-time persona session (returns realtime server URL, participant token, agent identity).
+  source_operation: openapi/keyframe-labs-sessions-openapi-original.json#createSession
+- name: stop_meet_bot
+  description: Stop a running meeting bot.
+  source_operation: openapi/keyframe-labs-sessions-openapi-original.json#stopMeetBot
+- name: create_meet_bot
+  description: Create a meeting bot that joins a Zoom/Meet/Teams call as a persona.
+  source_operation: openapi/keyframe-labs-sessions-openapi-original.json#createMeetBot
+- name: get_meet_bot_status
+  description: Get the status of a meeting bot by id.
+  source_operation: openapi/keyframe-labs-sessions-openapi-original.json#getMeetBotStatus
+- name: list_voices
+  description: List available voices.
+  source_operation: openapi/keyframe-labs-sessions-openapi-original.json#listVoices
+- name: get_voice
+  description: Get a voice by id.
+  source_operation: openapi/keyframe-labs-sessions-openapi-original.json#getVoice
+- name: list_llm_models
+  description: List available LLM models.
+  source_operation: openapi/keyframe-labs-sessions-openapi-original.json#listLlmModels
+- name: get_llm_model
+  description: Get an LLM model by id.
+  source_operation: openapi/keyframe-labs-sessions-openapi-original.json#getLlmModel

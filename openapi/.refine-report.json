@@ -1,0 +1,20 @@
+{
+  "provider": "keyframe-labs",
+  "sources": [
+    "keyframe-labs-llm-models-api-openapi.yml",
+    "keyframe-labs-meet-bots-api-openapi.yml",
+    "keyframe-labs-sessions-api-openapi.yml",
+    "keyframe-labs-voices-api-openapi.yml"
+  ],
+  "outputs": [
+    "keyframe-labs-llm-models-api-openapi.yml",
+    "keyframe-labs-meet-bots-api-openapi.yml",
+    "keyframe-labs-sessions-api-openapi.yml",
+    "keyframe-labs-voices-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

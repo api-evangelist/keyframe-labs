@@ -1,0 +1,20 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/keyframe-labs-sessions-openapi-original.json
+description: >-
+  Versioning and lifecycle posture for the Keyframe Sessions API. Version is
+  carried in the URI path (/v1). No public status page, deprecation policy, SLA,
+  or dated changelog was found at time of writing, so no StatusPage or
+  Deprecation pointers are emitted.
+versioning:
+  scheme: uri-path
+  current: v1
+  base_url: https://api.keyframelabs.com/v1
+  docs: https://docs.keyframelabs.com/api-reference
+deprecation:
+  policy_url: null
+  sunset_header: false
+sla:
+  url: null
+status_page: null
+deprecated_operations: []

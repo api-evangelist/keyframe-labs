@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Keyframe Sessions API
+  version: 1.0.0
+extends: openapi/keyframe-labs-sessions-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: keyframe-labs
+    x-apievangelist-product: Persona-1.5-Live
+    x-apievangelist-category: [AI, Avatars, Conversational AI, Real-Time Video]
+    x-apievangelist-auth: bearer
+    x-apievangelist-docs: https://docs.keyframelabs.com/api-reference
+- target: $.components.securitySchemes.bearerAuth
+  update:
+    description: >-
+      Bearer API key created in the Keyframe platform dashboard
+      (https://platform.keyframelabs.com/api-keys) and sent in the Authorization
+      header as `Authorization: Bearer <api_key>`.

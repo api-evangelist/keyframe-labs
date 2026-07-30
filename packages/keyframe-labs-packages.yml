@@ -1,0 +1,32 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.npmjs.com/search?q=%40keyframelabs
+description: >-
+  First-party Keyframe Labs client libraries published to npm under the
+  @keyframelabs scope. The SDK is the universal low-level client; elements and
+  react provide the embeddable UI layer (see components/keyframe-labs-components.yml).
+packages:
+- language: javascript
+  registry: npm
+  name: "@keyframelabs/sdk"
+  version: 0.2.0
+  url: https://www.npmjs.com/package/@keyframelabs/sdk
+  install: npm install @keyframelabs/sdk
+  description: The universal, low-level SDK for Keyframe Labs.
+  official: true
+- language: javascript
+  registry: npm
+  name: "@keyframelabs/elements"
+  version: 0.5.1
+  url: https://www.npmjs.com/package/@keyframelabs/elements
+  install: npm install @keyframelabs/elements
+  description: Framework-agnostic primitives (UI elements) for Keyframe Labs.
+  official: true
+- language: javascript
+  registry: npm
+  name: "@keyframelabs/react"
+  version: 0.1.0
+  url: https://www.npmjs.com/package/@keyframelabs/react
+  install: npm install @keyframelabs/react
+  description: React bindings and UI components for Keyframe Labs.
+  official: true

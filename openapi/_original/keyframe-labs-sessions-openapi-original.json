@@ -1,0 +1,817 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Sessions API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.keyframelabs.com/v1"
+    }
+  ],
+  "paths": {
+    "/sessions": {
+      "post": {
+        "tags": [
+          "Sessions"
+        ],
+        "operationId": "createSession",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Create session",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSessionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Session created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateSessionResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Model not allowed for plan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                },
+                "examples": {
+                  "modelNotAllowed": {
+                    "value": {
+                      "detail": "Plan 'free' does not support model persona-1.5-live"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "No capacity available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                },
+                "examples": {
+                  "busy": {
+                    "value": {
+                      "detail": "Our servers are busy. Please try again in a moment."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                },
+                "examples": {
+                  "internal": {
+                    "value": {
+                      "detail": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Meet bots"
+        ],
+        "operationId": "stopMeetBot",
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "parameters": [
+          {
+            "name": "bot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recall AI bot identifier"
+          },
+          {
+            "$ref": "#/components/parameters/RecallApiKeyHeader"
+          }
+        ],
+        "summary": "Stop meet bot",
+        "responses": {
+          "200": {
+            "description": "Meet bot stop requested",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StopMeetBotResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bot not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Failed to stop bot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/meet-bot": {
+      "post": {
+        "tags": [
+          "Meet bots"
+        ],
+        "operationId": "createMeetBot",
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/RecallApiKeyHeader"
+          }
+        ],
+        "summary": "Create meet bot",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMeetBotRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Meet bot created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateMeetBotResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Model not allowed for plan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                },
+                "examples": {
+                  "modelNotAllowed": {
+                    "value": {
+                      "detail": "Plan 'free' does not support model persona-1.5-live"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "No capacity available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                },
+                "examples": {
+                  "busy": {
+                    "value": {
+                      "detail": "Our servers are busy. Please try again in a moment."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                },
+                "examples": {
+                  "internal": {
+                    "value": {
+                      "detail": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/meet-bot/{bot_id}": {
+      "get": {
+        "tags": [
+          "Meet bots"
+        ],
+        "operationId": "getMeetBotStatus",
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "parameters": [
+          {
+            "name": "bot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recall AI bot identifier"
+          },
+          {
+            "$ref": "#/components/parameters/RecallApiKeyHeader"
+          }
+        ],
+        "summary": "Get meet bot status",
+        "responses": {
+          "200": {
+            "description": "Meet bot status returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeetBotStatusResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bot not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Failed to fetch bot status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/voices": {
+      "get": {
+        "tags": [
+          "Voices"
+        ],
+        "operationId": "listVoices",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "List voices",
+        "responses": {
+          "200": {
+            "description": "Voices returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/KflVoice"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/voices/{voice_id}": {
+      "get": {
+        "tags": [
+          "Voices"
+        ],
+        "operationId": "getVoice",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Get voice",
+        "parameters": [
+          {
+            "name": "voice_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Voice ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Voice returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KflVoice"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Voice not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                },
+                "examples": {
+                  "internal": {
+                    "value": {
+                      "detail": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/llm-models": {
+      "get": {
+        "tags": [
+          "LLM models"
+        ],
+        "operationId": "listLlmModels",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "List LLM models",
+        "responses": {
+          "200": {
+            "description": "LLM models returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/KflLlmModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/llm-models/{model_id}": {
+      "get": {
+        "tags": [
+          "LLM models"
+        ],
+        "operationId": "getLlmModel",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Get LLM model",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "LLM model ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "LLM model returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KflLlmModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "LLM model not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "parameters": {
+      "RecallApiKeyHeader": {
+        "name": "Recall-Api-Key",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Recall AI API key used to spawn and manage the bot"
+      }
+    },
+    "schemas": {
+      "CreateSessionRequest": {
+        "description": "Request to create a session.",
+        "oneOf": [
+          {
+            "title": "By Persona ID",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "persona_id"
+            ],
+            "properties": {
+              "persona_id": {
+                "type": "string",
+                "description": "ID of persona to use"
+              }
+            }
+          },
+          {
+            "title": "By Persona Slug",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "persona_slug"
+            ],
+            "properties": {
+              "persona_slug": {
+                "type": "string",
+                "description": "Slug of persona to use"
+              }
+            }
+          }
+        ]
+      },
+      "CreateSessionResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "server_url",
+          "participant_token",
+          "agent_identity"
+        ],
+        "properties": {
+          "server_url": {
+            "type": "string",
+            "description": "WebRTC connection URL"
+          },
+          "participant_token": {
+            "type": "string",
+            "description": "JWT for 'source' participant to pass audio to persona"
+          },
+          "agent_identity": {
+            "type": "string",
+            "description": "Identity of the persona in the WebRTC session"
+          }
+        }
+      },
+      "CreateMeetBotRequest": {
+        "description": "Request to create a meet bot.",
+        "oneOf": [
+          {
+            "title": "By Persona ID",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "meeting_url",
+              "persona_id",
+              "bot_name",
+              "system_prompt",
+              "greeting",
+              "voice_id",
+              "llm_model_id"
+            ],
+            "properties": {
+              "meeting_url": {
+                "type": "string",
+                "description": "URL of the meeting the bot should join"
+              },
+              "persona_id": {
+                "type": "string",
+                "description": "ID of persona to use"
+              },
+              "bot_name": {
+                "type": "string",
+                "description": "Display name shown for the bot in the meeting"
+              },
+              "system_prompt": {
+                "type": "string",
+                "description": "System prompt for the persona"
+              },
+              "greeting": {
+                "type": "string",
+                "description": "Greeting the bot speaks when it joins the meeting"
+              },
+              "voice_id": {
+                "type": "string",
+                "description": "Voice ID for the persona"
+              },
+              "llm_model_id": {
+                "type": "string",
+                "description": "LLM model ID for the persona"
+              },
+              "stt_max_endpoint_delay_ms": {
+                "type": "integer",
+                "description": "Maximum end-of-utterance delay (ms) for the speech-to-text endpointer",
+                "minimum": 0,
+                "default": 1000
+              },
+              "stt_language_hints": {
+                "type": "array",
+                "description": "BCP-47 language hints for speech-to-text",
+                "default": [
+                  "en"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "title": "By Persona Slug",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "meeting_url",
+              "persona_slug",
+              "bot_name",
+              "system_prompt",
+              "greeting",
+              "voice_id",
+              "llm_model_id"
+            ],
+            "properties": {
+              "meeting_url": {
+                "type": "string",
+                "description": "URL of the meeting the bot should join"
+              },
+              "persona_slug": {
+                "type": "string",
+                "description": "Slug of persona to use"
+              },
+              "bot_name": {
+                "type": "string",
+                "description": "Display name shown for the bot in the meeting"
+              },
+              "system_prompt": {
+                "type": "string",
+                "description": "System prompt for the persona"
+              },
+              "greeting": {
+                "type": "string",
+                "description": "Greeting the bot speaks when it joins the meeting"
+              },
+              "voice_id": {
+                "type": "string",
+                "description": "Voice ID for the persona"
+              },
+              "llm_model_id": {
+                "type": "string",
+                "description": "LLM model ID for the persona"
+              },
+              "stt_max_endpoint_delay_ms": {
+                "type": "integer",
+                "description": "Maximum end-of-utterance delay (ms) for the speech-to-text endpointer",
+                "minimum": 0,
+                "default": 1000
+              },
+              "stt_language_hints": {
+                "type": "array",
+                "description": "BCP-47 language hints for speech-to-text",
+                "default": [
+                  "en"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CreateMeetBotResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bot_id",
+          "meeting_url"
+        ],
+        "properties": {
+          "bot_id": {
+            "type": "string",
+            "description": "Recall AI bot identifier"
+          },
+          "meeting_url": {
+            "type": "string",
+            "description": "URL of the meeting the bot joined"
+          }
+        }
+      },
+      "MeetBotStatusResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bot_id",
+          "status"
+        ],
+        "properties": {
+          "bot_id": {
+            "type": "string",
+            "description": "Recall AI bot identifier"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current bot status"
+          },
+          "meeting_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "URL of the meeting associated with the bot"
+          }
+        }
+      },
+      "StopMeetBotResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bot_id",
+          "status"
+        ],
+        "properties": {
+          "bot_id": {
+            "type": "string",
+            "description": "Recall AI bot identifier"
+          },
+          "status": {
+            "type": "string",
+            "description": "Stop request status",
+            "enum": [
+              "leaving"
+            ]
+          }
+        }
+      },
+      "KflVoice": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "voice_id",
+          "name",
+          "tags",
+          "description",
+          "voice_settings"
+        ],
+        "properties": {
+          "voice_id": {
+            "type": "string",
+            "description": "Voice ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name for the voice"
+          },
+          "tags": {
+            "type": "array",
+            "description": "Search and categorization tags for the voice",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the voice"
+          },
+          "voice_settings": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Default voice synthesis settings for this voice"
+          }
+        }
+      },
+      "KflLlmModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "model_id",
+          "name",
+          "description"
+        ],
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "description": "LLM model ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name for the LLM model"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the LLM model"
+          }
+        }
+      },
+      "HTTPExceptionResponse": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "detail"
+        ],
+        "properties": {
+          "detail": {
+            "description": "Error detail",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object"
+              },
+              {
+                "type": "array"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/keyframe-labs-sessions-openapi-original.json
+format: custom
+description: >-
+  Error catalog derived from the 4xx/5xx responses in the Keyframe Sessions
+  OpenAPI. Errors are returned as a JSON object with a single `detail` string
+  (schema HTTPExceptionResponse) — this is FastAPI's default envelope, not
+  RFC 9457 application/problem+json.
+envelope:
+  media_type: application/json
+  schema: HTTPExceptionResponse
+  fields:
+    detail: Human-readable error message (string).
+problems:
+- status: 403
+  title: Model not allowed for plan
+  detail_example: "Plan 'pro' does not support model persona-1-live"
+  source_operations:
+  - openapi/keyframe-labs-sessions-openapi-original.json#createSession
+  - openapi/keyframe-labs-sessions-openapi-original.json#createMeetBot
+- status: 404
+  title: Resource not found
+  remediation: Verify the id (bot_id / voice_id / model_id) exists.
+  source_operations:
+  - openapi/keyframe-labs-sessions-openapi-original.json#stopMeetBot
+  - openapi/keyframe-labs-sessions-openapi-original.json#getMeetBotStatus
+  - openapi/keyframe-labs-sessions-openapi-original.json#getVoice
+  - openapi/keyframe-labs-sessions-openapi-original.json#getLlmModel
+- status: 500
+  title: Internal server error
+  source_operations:
+  - openapi/keyframe-labs-sessions-openapi-original.json#createSession
+  - openapi/keyframe-labs-sessions-openapi-original.json#createMeetBot
+- status: 502
+  title: Upstream failure (failed to stop bot / fetch bot status)
+  remediation: Transient upstream (meeting-bot provider) failure; retry.
+  source_operations:
+  - openapi/keyframe-labs-sessions-openapi-original.json#stopMeetBot
+  - openapi/keyframe-labs-sessions-openapi-original.json#getMeetBotStatus
+- status: 503
+  title: No capacity available
+  remediation: Concurrency/capacity limit reached; retry with backoff or upgrade plan.
+  source_operations:
+  - openapi/keyframe-labs-sessions-openapi-original.json#createSession
+  - openapi/keyframe-labs-sessions-openapi-original.json#createMeetBot

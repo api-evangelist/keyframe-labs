@@ -1,0 +1,21 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/keyframe-labs-sessions-openapi-original.json
+docs: https://docs.keyframelabs.com/api-reference
+description: >-
+  Entity-relationship graph derived from the response schemas in the Keyframe
+  Sessions OpenAPI. Request schemas (CreateSessionRequest, CreateMeetBotRequest)
+  expose no documented properties, so request-side relationships are not
+  asserted. A persona session is realtime infrastructure (returns a server URL,
+  participant token, and agent identity) rather than a persisted, id-addressable
+  resource; Voice, LlmModel, and MeetBot are the id-bearing entities.
+notation: >-
+  relationships use has_one / has_many / belongs_to with the reference field
+  name; direction is from the entity that owns the reference.
+entities:
+- {name: Session, id_field: null, domain: realtime, description: A live persona session; response carries server_url, participant_token, agent_identity.}
+- {name: MeetBot, id_field: bot_id, domain: meetings, description: A bot that joins a Zoom/Meet/Teams meeting as a persona; carries status and meeting_url.}
+- {name: Voice, id_field: voice_id, domain: catalog, description: A selectable voice with name, tags, description, and voice_settings.}
+- {name: LlmModel, id_field: model_id, domain: catalog, description: A selectable LLM model with name and description.}
+relationships:
+- {from: MeetBot, to: Session, kind: belongs_to, via: session, note: A meeting bot is created against a session (product-level; not an explicit schema field).}

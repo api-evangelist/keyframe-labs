@@ -1,0 +1,40 @@
+# Keyframe Labs
+
+> Add real-time, expressive personas to your AI agents and applications. Explore resources, tutorials, API docs, and dynamic examples to get the most out of Keyframe Lab's developer platform.
+
+## Docs
+
+- [Get LLM model](https://docs.keyframelabs.com/api-reference/llm-models/get-llm-model.md)
+- [List LLM models](https://docs.keyframelabs.com/api-reference/llm-models/list-llm-models.md)
+- [Create meet bot](https://docs.keyframelabs.com/api-reference/meet-bots/create-meet-bot.md)
+- [Get meet bot status](https://docs.keyframelabs.com/api-reference/meet-bots/get-meet-bot-status.md)
+- [Stop meet bot](https://docs.keyframelabs.com/api-reference/meet-bots/stop-meet-bot.md)
+- [Create session](https://docs.keyframelabs.com/api-reference/sessions/create-session.md)
+- [Get voice](https://docs.keyframelabs.com/api-reference/voices/get-voice.md)
+- [List voices](https://docs.keyframelabs.com/api-reference/voices/list-voices.md)
+- [Get an API key](https://docs.keyframelabs.com/guides/getting-started/get-your-api-key.md): Create an API key for accessing the Keyframe API
+- [Quickstart - hosted](https://docs.keyframelabs.com/guides/getting-started/quickstart-hosted.md): Get your first Keyframe persona up and running in minutes with a hosted pipeline
+- [Quickstart - self managed](https://docs.keyframelabs.com/guides/getting-started/quickstart-self-managed.md): Get your first Keyframe persona up and running in minutes with a self managed pipeline
+- [ElevenLabs Agents](https://docs.keyframelabs.com/guides/hosted/agent-frameworks/elevenlabs-agents.md)
+- [OpenAI Realtime](https://docs.keyframelabs.com/guides/hosted/agent-frameworks/openai-realtime.md): Integrate a Keyframe persona with an OpenAI Realtime application, via the hosted pipeline
+- [Hosted](https://docs.keyframelabs.com/guides/integrate/hosted.md): Best if you have an existing agent or LLM in production
+- [Meetings (Zoom, Meet, Teams)](https://docs.keyframelabs.com/guides/integrate/meetings-zoom-meet-teams.md): Add Keyframe personas to video meetings
+- [Overview](https://docs.keyframelabs.com/guides/integrate/overview.md): Choose the right integration approach for your use case
+- [Self managed](https://docs.keyframelabs.com/guides/integrate/self-managed.md): Best if you want maximum control
+- [Persona library](https://docs.keyframelabs.com/guides/resources/persona-library.md): Stock personas available to all accounts for immediate use
+- [ElevenLabs Agents](https://docs.keyframelabs.com/guides/self-managed/agent-frameworks/elevenlabs-agents.md): Integrate a Keyframe persona with an ElevenLabs agent, via the self managed pipeline
+- [LiveKit Agents](https://docs.keyframelabs.com/guides/self-managed/agent-frameworks/livekit-agents.md): Integrate a Keyframe persona with a LiveKit agent, via the self managed pipeline
+- [OpenAI Realtime](https://docs.keyframelabs.com/guides/self-managed/real-time-llms/openai-realtime.md): Integrate a Keyframe persona with an OpenAI Realtime application, via the self managed pipeline
+- [Introduction](https://docs.keyframelabs.com/index.md): Turn agents into lifelike video calls with Keyframe personas
+- [JavaScript](https://docs.keyframelabs.com/sdk-reference/javascript.md): Install, setup and deploy the Keyframe JavaScript (TypeScript) SDKs
+
+## OpenAPI Specs
+
+- [openapi](https://docs.keyframelabs.com/openapi.json)
+
+## Optional
+
+- [Main site](https://www.keyframelabs.com)
+- [Demo](https://demo.keyframelabs.com)
+- [Platform dashboard](https://platform.keyframelabs.com)
+- [Discord](https://discord.gg/Wfce5xHNd5)

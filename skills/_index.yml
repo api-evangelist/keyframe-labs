@@ -1,0 +1,12 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/keyframe-labs-sessions-openapi-original.json
+skills:
+- file: keyframe-labs-start-persona-session.md
+  name: Start a Keyframe persona session
+  api: openapi/keyframe-labs-sessions-openapi-original.json
+  operations: [listVoices, listLlmModels, createSession]
+- file: keyframe-labs-meeting-persona-bot.md
+  name: Send a Keyframe persona into a meeting
+  api: openapi/keyframe-labs-sessions-openapi-original.json
+  operations: [createMeetBot, getMeetBotStatus, stopMeetBot]

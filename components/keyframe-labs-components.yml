@@ -1,0 +1,23 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.keyframelabs.com/sdk-reference/javascript
+description: >-
+  Keyframe Labs' client-side, embeddable UI layer for adding a live persona
+  video call to a web application with a few lines of embed code. Distinct from
+  the low-level server/client SDK in packages/. Delivered as framework-agnostic
+  primitives (@keyframelabs/elements) plus React bindings and prebuilt UI
+  components (@keyframelabs/react).
+docs:
+- https://docs.keyframelabs.com/sdk-reference/javascript
+- https://demo.keyframelabs.com
+libraries:
+- {name: "@keyframelabs/elements", purpose: Framework-agnostic embeddable persona primitives; catalogued in packages/}
+- {name: "@keyframelabs/react", purpose: React bindings and prebuilt UI components; catalogued in packages/}
+- {name: "@keyframelabs/sdk", purpose: Universal low-level client the elements build on; catalogued in packages/}
+families:
+  elements:
+    description: Framework-agnostic client-side primitives for mounting a real-time persona video session in the browser.
+    library: "@keyframelabs/elements"
+  react:
+    description: React components and bindings that wrap the elements/SDK for drop-in embedding.
+    library: "@keyframelabs/react"
