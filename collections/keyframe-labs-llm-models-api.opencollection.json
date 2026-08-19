@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sessions LLM models API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "LLM models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List LLM models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.keyframelabs.com/v1/llm-models",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List LLM models"
+        },
+        {
+          "info": {
+            "name": "Get LLM model",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.keyframelabs.com/v1/llm-models/:model_id",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "path",
+                "description": "LLM model ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get LLM model"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

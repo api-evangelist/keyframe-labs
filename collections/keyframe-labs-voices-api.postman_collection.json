@@ -1,0 +1,268 @@
+{
+  "item": [
+    {
+      "id": "892c0e40-87f5-451c-ba35-ab1130ea1099",
+      "name": "Voices",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "85593ccf-40d4-45d9-9942-e4fe0383b90e",
+          "name": "List voices",
+          "request": {
+            "name": "List voices",
+            "description": {},
+            "url": {
+              "path": [
+                "voices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0877cf5b-a029-4f08-91c2-82bcf5ff1bdf",
+              "name": "Voices returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "voices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"voice_id\": \"string\",\n    \"name\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"description\": \"string\",\n    \"voice_settings\": {\n      \"key_0\": false,\n      \"key_1\": 5953\n    }\n  },\n  {\n    \"voice_id\": \"string\",\n    \"name\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"description\": \"string\",\n    \"voice_settings\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": 3411,\n      \"key_3\": 9076.771371690098\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53937ee3-5a37-491f-86ba-1825d021b98c",
+          "name": "Get voice",
+          "request": {
+            "name": "Get voice",
+            "description": {},
+            "url": {
+              "path": [
+                "voices",
+                ":voice_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "voice_id",
+                  "description": "(Required) Voice ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4f338e77-db27-4ddd-bd46-6be4efebddc9",
+              "name": "Voice returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "voices",
+                    ":voice_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "voice_id",
+                      "description": "(Required) Voice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"voice_id\": \"string\",\n  \"name\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"description\": \"string\",\n  \"voice_settings\": {\n    \"key_0\": 9816.291467960376,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02852007-c4e4-4275-8806-6bb6542242ae",
+              "name": "Voice not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "voices",
+                    ":voice_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "voice_id",
+                      "description": "(Required) Voice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Internal server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.keyframelabs.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "68894f40-bffc-44f0-bc71-362aeb42e3af",
+    "name": "Sessions LLM models Voices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

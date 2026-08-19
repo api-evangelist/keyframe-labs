@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sessions LLM models Voices API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Voices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List voices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.keyframelabs.com/v1/voices",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List voices"
+        },
+        {
+          "info": {
+            "name": "Get voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.keyframelabs.com/v1/voices/:voice_id",
+            "params": [
+              {
+                "name": "voice_id",
+                "value": "",
+                "type": "path",
+                "description": "Voice ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get voice"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

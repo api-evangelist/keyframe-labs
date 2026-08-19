@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sessions LLM models Meet bots API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Meet bots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Stop meet bot",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.keyframelabs.com/v1/sessions",
+            "headers": [
+              {
+                "name": "Recall-Api-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bot_id",
+                "value": "",
+                "type": "path",
+                "description": "Recall AI bot identifier"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Stop meet bot"
+        },
+        {
+          "info": {
+            "name": "Create meet bot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.keyframelabs.com/v1/meet-bot",
+            "headers": [
+              {
+                "name": "Recall-Api-Key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create meet bot"
+        },
+        {
+          "info": {
+            "name": "Get meet bot status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.keyframelabs.com/v1/meet-bot/:bot_id",
+            "headers": [
+              {
+                "name": "Recall-Api-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bot_id",
+                "value": "",
+                "type": "path",
+                "description": "Recall AI bot identifier"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get meet bot status"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
