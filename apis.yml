@@ -36,6 +36,17 @@ modified: '2026-07-19'
 image: https://platform.keyframelabs.com/og.png
 tags:
 - Company
+- Artificial Intelligence
+- Avatars
+- Video
+- Conversational AI
+- Agents
+- Real-Time
+- Personas
+- Voice
+- Y Combinator
+tags_raw:
+- Company
 - AI
 - Avatars
 - Video
@@ -52,6 +63,8 @@ apis:
   humanURL: https://docs.keyframelabs.com/api-reference
   baseURL: https://api.keyframelabs.com/v1
   tags:
+  - LLM Models
+  tags_raw:
   - LLM models
   properties:
   - type: OpenAPI
