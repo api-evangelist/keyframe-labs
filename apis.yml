@@ -75,7 +75,7 @@ apis:
   humanURL: https://docs.keyframelabs.com/api-reference
   baseURL: https://api.keyframelabs.com/v1
   tags:
-  - LLM models
+  - LLM Models
   tags_raw:
   - LLM models
   properties:
