@@ -108,6 +108,8 @@ apis:
   humanURL: https://docs.keyframelabs.com/api-reference
   baseURL: https://api.keyframelabs.com/v1
   tags:
+  - Voice
+  tags_raw:
   - Voices
   properties:
   - type: OpenAPI
