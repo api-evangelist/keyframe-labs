@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Sessions LLM models Meet bots API
+  title: Sessions Meet bots API
   version: 1.0.0
 servers:
 - url: https://api.keyframelabs.com/v1
@@ -132,31 +132,6 @@ paths:
                 $ref: '#/components/schemas/HTTPExceptionResponse'
 components:
   schemas:
-    CreateMeetBotResponse:
-      type: object
-      additionalProperties: false
-      required:
-      - bot_id
-      - meeting_url
-      properties:
-        bot_id:
-          type: string
-          description: Recall AI bot identifier
-        meeting_url:
-          type: string
-          description: URL of the meeting the bot joined
-    HTTPExceptionResponse:
-      type: object
-      additionalProperties: true
-      required:
-      - detail
-      properties:
-        detail:
-          description: Error detail
-          anyOf:
-          - type: string
-          - type: object
-          - type: array
     StopMeetBotResponse:
       type: object
       additionalProperties: false
@@ -172,6 +147,31 @@ components:
           description: Stop request status
           enum:
           - leaving
+    HTTPExceptionResponse:
+      type: object
+      additionalProperties: true
+      required:
+      - detail
+      properties:
+        detail:
+          description: Error detail
+          anyOf:
+          - type: string
+          - type: object
+          - type: array
+    CreateMeetBotResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - bot_id
+      - meeting_url
+      properties:
+        bot_id:
+          type: string
+          description: Recall AI bot identifier
+        meeting_url:
+          type: string
+          description: URL of the meeting the bot joined
     MeetBotStatusResponse:
       type: object
       additionalProperties: false

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Sessions LLM models Voices API
+  title: Sessions Voices API
   version: 1.0.0
 servers:
 - url: https://api.keyframelabs.com/v1
@@ -58,6 +58,18 @@ paths:
                     detail: Internal server error
 components:
   schemas:
+    HTTPExceptionResponse:
+      type: object
+      additionalProperties: true
+      required:
+      - detail
+      properties:
+        detail:
+          description: Error detail
+          anyOf:
+          - type: string
+          - type: object
+          - type: array
     KflVoice:
       type: object
       additionalProperties: false
@@ -86,18 +98,6 @@ components:
           type: object
           additionalProperties: true
           description: Default voice synthesis settings for this voice
-    HTTPExceptionResponse:
-      type: object
-      additionalProperties: true
-      required:
-      - detail
-      properties:
-        detail:
-          description: Error detail
-          anyOf:
-          - type: string
-          - type: object
-          - type: array
   securitySchemes:
     bearerAuth:
       type: http
