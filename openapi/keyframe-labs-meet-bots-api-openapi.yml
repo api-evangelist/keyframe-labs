@@ -132,64 +132,6 @@ paths:
                 $ref: '#/components/schemas/HTTPExceptionResponse'
 components:
   schemas:
-    StopMeetBotResponse:
-      type: object
-      additionalProperties: false
-      required:
-      - bot_id
-      - status
-      properties:
-        bot_id:
-          type: string
-          description: Recall AI bot identifier
-        status:
-          type: string
-          description: Stop request status
-          enum:
-          - leaving
-    HTTPExceptionResponse:
-      type: object
-      additionalProperties: true
-      required:
-      - detail
-      properties:
-        detail:
-          description: Error detail
-          anyOf:
-          - type: string
-          - type: object
-          - type: array
-    CreateMeetBotResponse:
-      type: object
-      additionalProperties: false
-      required:
-      - bot_id
-      - meeting_url
-      properties:
-        bot_id:
-          type: string
-          description: Recall AI bot identifier
-        meeting_url:
-          type: string
-          description: URL of the meeting the bot joined
-    MeetBotStatusResponse:
-      type: object
-      additionalProperties: false
-      required:
-      - bot_id
-      - status
-      properties:
-        bot_id:
-          type: string
-          description: Recall AI bot identifier
-        status:
-          type: string
-          description: Current bot status
-        meeting_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: URL of the meeting associated with the bot
     CreateMeetBotRequest:
       description: Request to create a meet bot.
       oneOf:
@@ -283,6 +225,64 @@ components:
             - en
             items:
               type: string
+    MeetBotStatusResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - bot_id
+      - status
+      properties:
+        bot_id:
+          type: string
+          description: Recall AI bot identifier
+        status:
+          type: string
+          description: Current bot status
+        meeting_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: URL of the meeting associated with the bot
+    HTTPExceptionResponse:
+      type: object
+      additionalProperties: true
+      required:
+      - detail
+      properties:
+        detail:
+          description: Error detail
+          anyOf:
+          - type: string
+          - type: object
+          - type: array
+    StopMeetBotResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - bot_id
+      - status
+      properties:
+        bot_id:
+          type: string
+          description: Recall AI bot identifier
+        status:
+          type: string
+          description: Stop request status
+          enum:
+          - leaving
+    CreateMeetBotResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - bot_id
+      - meeting_url
+      properties:
+        bot_id:
+          type: string
+          description: Recall AI bot identifier
+        meeting_url:
+          type: string
+          description: URL of the meeting the bot joined
   parameters:
     RecallApiKeyHeader:
       name: Recall-Api-Key

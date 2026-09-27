@@ -60,6 +60,27 @@ paths:
                     detail: Internal server error
 components:
   schemas:
+    CreateSessionRequest:
+      description: Request to create a session.
+      oneOf:
+      - title: By Persona ID
+        type: object
+        additionalProperties: false
+        required:
+        - persona_id
+        properties:
+          persona_id:
+            type: string
+            description: ID of persona to use
+      - title: By Persona Slug
+        type: object
+        additionalProperties: false
+        required:
+        - persona_slug
+        properties:
+          persona_slug:
+            type: string
+            description: Slug of persona to use
     CreateSessionResponse:
       type: object
       additionalProperties: false
@@ -89,27 +110,6 @@ components:
           - type: string
           - type: object
           - type: array
-    CreateSessionRequest:
-      description: Request to create a session.
-      oneOf:
-      - title: By Persona ID
-        type: object
-        additionalProperties: false
-        required:
-        - persona_id
-        properties:
-          persona_id:
-            type: string
-            description: ID of persona to use
-      - title: By Persona Slug
-        type: object
-        additionalProperties: false
-        required:
-        - persona_slug
-        properties:
-          persona_slug:
-            type: string
-            description: Slug of persona to use
   securitySchemes:
     bearerAuth:
       type: http
