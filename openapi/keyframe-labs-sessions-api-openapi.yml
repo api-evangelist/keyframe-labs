@@ -60,6 +60,18 @@ paths:
                     detail: Internal server error
 components:
   schemas:
+    HTTPExceptionResponse:
+      type: object
+      additionalProperties: true
+      required:
+      - detail
+      properties:
+        detail:
+          description: Error detail
+          anyOf:
+          - type: string
+          - type: object
+          - type: array
     CreateSessionRequest:
       description: Request to create a session.
       oneOf:
@@ -98,18 +110,6 @@ components:
         agent_identity:
           type: string
           description: Identity of the persona in the WebRTC session
-    HTTPExceptionResponse:
-      type: object
-      additionalProperties: true
-      required:
-      - detail
-      properties:
-        detail:
-          description: Error detail
-          anyOf:
-          - type: string
-          - type: object
-          - type: array
   securitySchemes:
     bearerAuth:
       type: http
