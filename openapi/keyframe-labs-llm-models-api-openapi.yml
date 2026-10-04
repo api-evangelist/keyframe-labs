@@ -54,6 +54,18 @@ paths:
                 $ref: '#/components/schemas/HTTPExceptionResponse'
 components:
   schemas:
+    HTTPExceptionResponse:
+      type: object
+      additionalProperties: true
+      required:
+      - detail
+      properties:
+        detail:
+          description: Error detail
+          anyOf:
+          - type: string
+          - type: object
+          - type: array
     KflLlmModel:
       type: object
       additionalProperties: false
@@ -71,18 +83,6 @@ components:
         description:
           type: string
           description: Description of the LLM model
-    HTTPExceptionResponse:
-      type: object
-      additionalProperties: true
-      required:
-      - detail
-      properties:
-        detail:
-          description: Error detail
-          anyOf:
-          - type: string
-          - type: object
-          - type: array
   securitySchemes:
     bearerAuth:
       type: http

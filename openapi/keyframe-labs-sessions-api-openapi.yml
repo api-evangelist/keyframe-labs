@@ -60,6 +60,23 @@ paths:
                     detail: Internal server error
 components:
   schemas:
+    CreateSessionResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - server_url
+      - participant_token
+      - agent_identity
+      properties:
+        server_url:
+          type: string
+          description: WebRTC connection URL
+        participant_token:
+          type: string
+          description: JWT for 'source' participant to pass audio to persona
+        agent_identity:
+          type: string
+          description: Identity of the persona in the WebRTC session
     HTTPExceptionResponse:
       type: object
       additionalProperties: true
@@ -93,23 +110,6 @@ components:
           persona_slug:
             type: string
             description: Slug of persona to use
-    CreateSessionResponse:
-      type: object
-      additionalProperties: false
-      required:
-      - server_url
-      - participant_token
-      - agent_identity
-      properties:
-        server_url:
-          type: string
-          description: WebRTC connection URL
-        participant_token:
-          type: string
-          description: JWT for 'source' participant to pass audio to persona
-        agent_identity:
-          type: string
-          description: Identity of the persona in the WebRTC session
   securitySchemes:
     bearerAuth:
       type: http

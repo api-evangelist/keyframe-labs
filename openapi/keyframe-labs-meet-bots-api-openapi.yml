@@ -147,18 +147,6 @@ components:
           description: Stop request status
           enum:
           - leaving
-    HTTPExceptionResponse:
-      type: object
-      additionalProperties: true
-      required:
-      - detail
-      properties:
-        detail:
-          description: Error detail
-          anyOf:
-          - type: string
-          - type: object
-          - type: array
     CreateMeetBotResponse:
       type: object
       additionalProperties: false
@@ -172,6 +160,18 @@ components:
         meeting_url:
           type: string
           description: URL of the meeting the bot joined
+    HTTPExceptionResponse:
+      type: object
+      additionalProperties: true
+      required:
+      - detail
+      properties:
+        detail:
+          description: Error detail
+          anyOf:
+          - type: string
+          - type: object
+          - type: array
     CreateMeetBotRequest:
       description: Request to create a meet bot.
       oneOf:
