@@ -1,0 +1,116 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://keyframelabs.com/pricing
+sources:
+- https://keyframelabs.com/pricing
+- https://www.keyframelabs.com/pricing
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-07'
+published: true
+note: Tiered monthly plans with included credits/minutes; model rate persona-1.5-live 6 credits / min;
+  Enterprise is custom.
+plan_count: 5
+currency: USD
+plans:
+- name: Free
+  price_text: $0 / month
+  price: 0
+  currency: USD
+  period: month
+  unit: plan
+  included_quota: Credits included 180 / mo; Minutes included 30 / mo; Conversation limit 5 min; Concurrent
+    sessions 1
+- name: Starter
+  price_text: $50 / month
+  price: 50
+  currency: USD
+  period: month
+  unit: plan
+  included_quota: Credits included 1,800 / mo; Minutes included 300 / mo; Conversation limit 10 min; Concurrent
+    sessions 5
+  overage: Extra minutes as low as $0.06 / min
+- name: Growth
+  price_text: $100 / month
+  price: 100
+  currency: USD
+  period: month
+  unit: plan
+  included_quota: Credits included 6,000 / mo; Minutes included 1,000 / mo; Conversation limit 20 min;
+    Concurrent sessions 10
+  overage: From $0.06 / min
+- name: Scale
+  price_text: $300 / month
+  price: 300
+  currency: USD
+  period: month
+  unit: plan
+  included_quota: Credits included 18,000 / mo; Minutes included 3,000 / mo; Conversation limit 60 min;
+    Concurrent sessions 30
+  overage: From $0.06 / min
+- name: Enterprise
+  price_text: Custom
+  period: none
+  included_quota: Custom credits/minutes; Unlimited conversation limit; Elevated concurrent sessions
+  overage: Discounted at scale
+rate_limit_statements:
+- Conversation limit 5 min
+- Concurrent sessions 1
+- Conversation length limit 5 min 10 min 20 min 60 min Unlimited
+- Concurrent sessions 1 5 10 30 Elevated
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - hybrid
+  - metered
+  units: []
+  plans:
+  - name: Free
+    access: other
+    model: free
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Starter
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Growth
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Scale
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Enterprise
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods:
+    - none
