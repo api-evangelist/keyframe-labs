@@ -1,0 +1,1634 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Sessions API",
+    "version": "1.2.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.keyframelabs.com/v1"
+    }
+  ],
+  "paths": {
+    "/sessions": {
+      "post": {
+        "tags": [
+          "Sessions"
+        ],
+        "operationId": "createSession",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Create session",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSessionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Session created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateSessionResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Model not allowed for plan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                },
+                "examples": {
+                  "modelNotAllowed": {
+                    "value": {
+                      "detail": "Plan 'free' does not support model persona-1.5-live"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "No capacity available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                },
+                "examples": {
+                  "busy": {
+                    "value": {
+                      "detail": "Our servers are busy. Please try again in a moment."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                },
+                "examples": {
+                  "internal": {
+                    "value": {
+                      "detail": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/meet-bot": {
+      "post": {
+        "tags": [
+          "Meet bots"
+        ],
+        "operationId": "createMeetBot",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/RecallApiKeyHeader"
+          }
+        ],
+        "summary": "Create meet bot",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMeetBotRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Meet bot created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateMeetBotResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Model not allowed for plan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                },
+                "examples": {
+                  "modelNotAllowed": {
+                    "value": {
+                      "detail": "Plan 'free' does not support model persona-1.5-live"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "No capacity available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                },
+                "examples": {
+                  "busy": {
+                    "value": {
+                      "detail": "Our servers are busy. Please try again in a moment."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                },
+                "examples": {
+                  "internal": {
+                    "value": {
+                      "detail": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/meet-bot/{bot_id}": {
+      "get": {
+        "tags": [
+          "Meet bots"
+        ],
+        "operationId": "getMeetBotStatus",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "bot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recall AI bot identifier"
+          },
+          {
+            "$ref": "#/components/parameters/RecallApiKeyHeader"
+          }
+        ],
+        "summary": "Get meet bot status",
+        "responses": {
+          "200": {
+            "description": "Meet bot status returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeetBotStatusResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bot not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Failed to fetch bot status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Meet bots"
+        ],
+        "operationId": "stopMeetBot",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "bot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recall AI bot identifier"
+          },
+          {
+            "$ref": "#/components/parameters/RecallApiKeyHeader"
+          }
+        ],
+        "summary": "Stop meet bot",
+        "responses": {
+          "200": {
+            "description": "Meet bot stop requested",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StopMeetBotResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bot not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Failed to stop bot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/avatars": {
+      "get": {
+        "tags": [
+          "Avatars"
+        ],
+        "operationId": "listAvatars",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "List avatars",
+        "description": "Avatars available to your organization. `apis` names the surface that accepts it: 'sessions' (POST /sessions, embed) takes the persona_id, 'generations' (POST /generations) takes the persona_id plus `model_id` as `model`.",
+        "responses": {
+          "200": {
+            "description": "Avatars returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Avatar"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/voices": {
+      "get": {
+        "tags": [
+          "Voices"
+        ],
+        "operationId": "listVoices",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "List voices",
+        "responses": {
+          "200": {
+            "description": "Voices returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/KflVoice"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/voices/{voice_id}": {
+      "get": {
+        "tags": [
+          "Voices"
+        ],
+        "operationId": "getVoice",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Get voice",
+        "parameters": [
+          {
+            "name": "voice_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Voice ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Voice returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KflVoice"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Voice not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                },
+                "examples": {
+                  "internal": {
+                    "value": {
+                      "detail": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/llm-models": {
+      "get": {
+        "tags": [
+          "LLM models"
+        ],
+        "operationId": "listLlmModels",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "List LLM models",
+        "responses": {
+          "200": {
+            "description": "LLM models returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/KflLlmModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/llm-models/{model_id}": {
+      "get": {
+        "tags": [
+          "LLM models"
+        ],
+        "operationId": "getLlmModel",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Get LLM model",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "LLM model ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "LLM model returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KflLlmModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "LLM model not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPExceptionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/uploads": {
+      "post": {
+        "tags": [
+          "Generations"
+        ],
+        "operationId": "createUpload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Create audio upload",
+        "description": "Returns a signed URL to PUT one audio file to. Takes no request body. Upload the raw bytes with no required headers, then pass the returned `id` as `audio_file_id`.\n\nOne upload can back several generations -- the same audio rendered as mp4 and webm, or re-run with a different emotion timeline -- without re-sending it.",
+        "responses": {
+          "201": {
+            "description": "Upload URL issued",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateUploadResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "examples": {
+                  "invalid_request": {
+                    "value": {
+                      "error": {
+                        "code": "invalid_request",
+                        "message": "Invalid API Key",
+                        "param": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "examples": {
+                  "internal_error": {
+                    "value": {
+                      "error": {
+                        "code": "internal_error",
+                        "message": "Internal server error",
+                        "param": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/generations": {
+      "post": {
+        "tags": [
+          "Generations"
+        ],
+        "operationId": "createGeneration",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Create generation",
+        "description": "Queues a batch render and returns immediately with a `queued` job. Poll it, or supply a `webhook`.\n\nThe uploaded audio is inspected before the job is created: an unreadable file, a file containing a video stream, an unsupported codec or one longer than the limit is rejected with 400 and nothing is queued. `duration_seconds` in the response is measured, not declared.",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Re-sending the same key returns the original job instead of queueing a second one. Scoped to your organisation."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGenerationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Generation queued",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Generation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request or unusable audio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "examples": {
+                  "invalid_request": {
+                    "value": {
+                      "error": {
+                        "code": "invalid_request",
+                        "message": "file contains a video stream; upload audio only",
+                        "param": "audio_file_id"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "examples": {
+                  "invalid_request": {
+                    "value": {
+                      "error": {
+                        "code": "invalid_request",
+                        "message": "Invalid API Key",
+                        "param": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Billing issue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "examples": {
+                  "payment_required": {
+                    "value": {
+                      "error": {
+                        "code": "payment_required",
+                        "message": "No active subscription found. Please set up billing.",
+                        "param": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Model not allowed for plan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "examples": {
+                  "model_not_allowed": {
+                    "value": {
+                      "error": {
+                        "code": "model_not_allowed",
+                        "message": "Plan 'free' does not support model persona-1.5",
+                        "param": "model"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too much work already queued",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "examples": {
+                  "queue_limit_exceeded": {
+                    "value": {
+                      "error": {
+                        "code": "queue_limit_exceeded",
+                        "message": "You already have 50 generations queued or running. Wait for some to finish before submitting more.",
+                        "param": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "examples": {
+                  "internal_error": {
+                    "value": {
+                      "error": {
+                        "code": "internal_error",
+                        "message": "Internal server error",
+                        "param": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Generations"
+        ],
+        "operationId": "listGenerations",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "List generations",
+        "description": "Newest first. Cursor-paginated rather than offset-paginated, because the queue changes while you page through it and an offset would skip or repeat rows.",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "`next_cursor` from the previous page."
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "queued",
+                "running",
+                "done",
+                "failed"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Generations returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerationList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed cursor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "examples": {
+                  "invalid_request": {
+                    "value": {
+                      "error": {
+                        "code": "invalid_request",
+                        "message": "malformed cursor",
+                        "param": "after"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "examples": {
+                  "invalid_request": {
+                    "value": {
+                      "error": {
+                        "code": "invalid_request",
+                        "message": "Invalid API Key",
+                        "param": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/generations/{generation_id}": {
+      "get": {
+        "tags": [
+          "Generations"
+        ],
+        "operationId": "getGeneration",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Get generation",
+        "description": "Returns the job, with a freshly signed `output_url` when it is done. The link is valid for 30 minutes and is not stored -- read the generation again to get another.",
+        "parameters": [
+          {
+            "name": "generation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Generation identifier"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Generation returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Generation"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "examples": {
+                  "invalid_request": {
+                    "value": {
+                      "error": {
+                        "code": "invalid_request",
+                        "message": "Invalid API Key",
+                        "param": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such generation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "examples": {
+                  "generation_not_found": {
+                    "value": {
+                      "error": {
+                        "code": "generation_not_found",
+                        "message": "no generation with id gen_123",
+                        "param": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "parameters": {
+      "RecallApiKeyHeader": {
+        "name": "Recall-Api-Key",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Recall AI API key used to spawn and manage the bot"
+      }
+    },
+    "schemas": {
+      "CreateSessionRequest": {
+        "description": "Request to create a session.",
+        "oneOf": [
+          {
+            "title": "By Persona ID",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "persona_id"
+            ],
+            "properties": {
+              "persona_id": {
+                "type": "string",
+                "description": "ID of avatar to use"
+              }
+            }
+          },
+          {
+            "title": "By Persona Slug",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "persona_slug"
+            ],
+            "properties": {
+              "persona_slug": {
+                "type": "string",
+                "description": "Slug of avatar to use"
+              }
+            }
+          }
+        ]
+      },
+      "CreateSessionResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "server_url",
+          "participant_token",
+          "agent_identity"
+        ],
+        "properties": {
+          "server_url": {
+            "type": "string",
+            "description": "WebRTC connection URL"
+          },
+          "participant_token": {
+            "type": "string",
+            "description": "JWT for 'source' participant to pass audio to avatar"
+          },
+          "agent_identity": {
+            "type": "string",
+            "description": "Identity of the avatar in the WebRTC session"
+          }
+        }
+      },
+      "CreateMeetBotRequest": {
+        "description": "Request to create a meet bot.",
+        "oneOf": [
+          {
+            "title": "By Persona ID",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "meeting_url",
+              "persona_id",
+              "bot_name",
+              "system_prompt",
+              "greeting",
+              "voice_id",
+              "llm_model_id"
+            ],
+            "properties": {
+              "meeting_url": {
+                "type": "string",
+                "description": "URL of the meeting the bot should join"
+              },
+              "persona_id": {
+                "type": "string",
+                "description": "ID of avatar to use"
+              },
+              "bot_name": {
+                "type": "string",
+                "description": "Display name shown for the bot in the meeting"
+              },
+              "system_prompt": {
+                "type": "string",
+                "description": "System prompt for the avatar"
+              },
+              "greeting": {
+                "type": "string",
+                "description": "Greeting the bot speaks when it joins the meeting"
+              },
+              "voice_id": {
+                "type": "string",
+                "description": "Voice ID for the avatar"
+              },
+              "llm_model_id": {
+                "type": "string",
+                "description": "LLM model ID for the avatar"
+              },
+              "stt_max_endpoint_delay_ms": {
+                "type": "integer",
+                "description": "Maximum end-of-utterance delay (ms) for the speech-to-text endpointer",
+                "minimum": 0,
+                "default": 1000
+              },
+              "stt_language_hints": {
+                "type": "array",
+                "description": "BCP-47 language hints for speech-to-text",
+                "default": [
+                  "en"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "title": "By Persona Slug",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "meeting_url",
+              "persona_slug",
+              "bot_name",
+              "system_prompt",
+              "greeting",
+              "voice_id",
+              "llm_model_id"
+            ],
+            "properties": {
+              "meeting_url": {
+                "type": "string",
+                "description": "URL of the meeting the bot should join"
+              },
+              "persona_slug": {
+                "type": "string",
+                "description": "Slug of avatar to use"
+              },
+              "bot_name": {
+                "type": "string",
+                "description": "Display name shown for the bot in the meeting"
+              },
+              "system_prompt": {
+                "type": "string",
+                "description": "System prompt for the avatar"
+              },
+              "greeting": {
+                "type": "string",
+                "description": "Greeting the bot speaks when it joins the meeting"
+              },
+              "voice_id": {
+                "type": "string",
+                "description": "Voice ID for the avatar"
+              },
+              "llm_model_id": {
+                "type": "string",
+                "description": "LLM model ID for the avatar"
+              },
+              "stt_max_endpoint_delay_ms": {
+                "type": "integer",
+                "description": "Maximum end-of-utterance delay (ms) for the speech-to-text endpointer",
+                "minimum": 0,
+                "default": 1000
+              },
+              "stt_language_hints": {
+                "type": "array",
+                "description": "BCP-47 language hints for speech-to-text",
+                "default": [
+                  "en"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CreateMeetBotResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bot_id",
+          "meeting_url"
+        ],
+        "properties": {
+          "bot_id": {
+            "type": "string",
+            "description": "Recall AI bot identifier"
+          },
+          "meeting_url": {
+            "type": "string",
+            "description": "URL of the meeting the bot joined"
+          }
+        }
+      },
+      "MeetBotStatusResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bot_id",
+          "status"
+        ],
+        "properties": {
+          "bot_id": {
+            "type": "string",
+            "description": "Recall AI bot identifier"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current bot status"
+          },
+          "meeting_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "URL of the meeting associated with the bot"
+          }
+        }
+      },
+      "StopMeetBotResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bot_id",
+          "status"
+        ],
+        "properties": {
+          "bot_id": {
+            "type": "string",
+            "description": "Recall AI bot identifier"
+          },
+          "status": {
+            "type": "string",
+            "description": "Stop request status",
+            "enum": [
+              "leaving"
+            ]
+          }
+        }
+      },
+      "Avatar": {
+        "type": "object",
+        "required": [
+          "persona_id",
+          "slug",
+          "display_name",
+          "cover_asset_uri",
+          "model_id",
+          "apis"
+        ],
+        "properties": {
+          "persona_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string",
+            "example": "dev-test"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "Dev Test"
+          },
+          "cover_asset_uri": {
+            "type": "string",
+            "description": "Thumbnail image for the avatar."
+          },
+          "model_id": {
+            "type": "string",
+            "example": "persona-1.5",
+            "description": "The model this avatar runs on; pass as `model` to POST /generations when apis includes 'generations'."
+          },
+          "apis": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "sessions",
+                "generations"
+              ]
+            },
+            "description": "API surfaces this avatar is callable on."
+          }
+        }
+      },
+      "KflVoice": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "voice_id",
+          "name",
+          "tags",
+          "description",
+          "voice_settings"
+        ],
+        "properties": {
+          "voice_id": {
+            "type": "string",
+            "description": "Voice ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name for the voice"
+          },
+          "tags": {
+            "type": "array",
+            "description": "Search and categorization tags for the voice",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the voice"
+          },
+          "voice_settings": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Default voice synthesis settings for this voice"
+          }
+        }
+      },
+      "KflLlmModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "model_id",
+          "name",
+          "description"
+        ],
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "description": "LLM model ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name for the LLM model"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the LLM model"
+          }
+        }
+      },
+      "HTTPExceptionResponse": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "detail"
+        ],
+        "properties": {
+          "detail": {
+            "description": "Error detail",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object"
+              },
+              {
+                "type": "array"
+              }
+            ]
+          }
+        }
+      },
+      "ApiErrorResponse": {
+        "description": "Structured error envelope used by the Generations and Uploads endpoints. A superset of the `detail` shape the older endpoints return: `code` is stable and safe to branch on, `param` names the offending field when one is identifiable.",
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "model_not_allowed",
+                  "persona_not_found",
+                  "invalid_request",
+                  "payment_required",
+                  "queue_limit_exceeded",
+                  "generation_not_found",
+                  "internal_error"
+                ]
+              },
+              "message": {
+                "type": "string"
+              },
+              "param": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Request field that caused the error, when known."
+              }
+            }
+          }
+        }
+      },
+      "CreateUploadResponse": {
+        "description": "A signed URL for one audio upload. Takes no request body: anything you could declare here would be unverified, so size and content are checked against the stored object when the generation is created.",
+        "type": "object",
+        "required": [
+          "id",
+          "object",
+          "upload_url",
+          "method",
+          "expires_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Pass as `audio_file_id` when creating a generation.",
+            "example": "9f2c1e7a4b"
+          },
+          "object": {
+            "type": "string",
+            "enum": [
+              "upload"
+            ]
+          },
+          "upload_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "PUT the raw audio bytes here. No headers are required."
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "PUT"
+            ]
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "After this the URL stops working, but the id stays valid for an upload already completed."
+          }
+        }
+      },
+      "EmotionKeyframe": {
+        "type": "object",
+        "required": [
+          "at",
+          "name"
+        ],
+        "properties": {
+          "at": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Seconds from the start of the clip. Floored to the model's one-second inference window."
+          },
+          "name": {
+            "type": "string",
+            "example": "happy"
+          }
+        }
+      },
+      "WebhookConfig": {
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "HTTPS endpoint that receives lifecycle events."
+          },
+          "secret": {
+            "type": "string",
+            "minLength": 16,
+            "maxLength": 256,
+            "description": "Signs deliveries as `KFL-Signature: t=<unix>,v1=<hmac-sha256>` over `\"{t}.{body}\"`. Generated if omitted."
+          }
+        }
+      },
+      "CreateGenerationRequest": {
+        "description": "Queue a batch video generation. The audio must already be uploaded via POST /uploads.",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "model",
+          "persona_id",
+          "audio_file_id"
+        ],
+        "properties": {
+          "model": {
+            "type": "string",
+            "example": "persona-1.5",
+            "description": "Must appear in your plan's allowed models."
+          },
+          "persona_id": {
+            "type": "string",
+            "description": "ID of avatar to use"
+          },
+          "audio_file_id": {
+            "type": "string",
+            "description": "`id` returned by POST /uploads, after the audio has been PUT to the signed URL."
+          },
+          "output_format": {
+            "type": "string",
+            "enum": [
+              "mp4",
+              "webm",
+              "mov"
+            ],
+            "default": "mp4"
+          },
+          "emotion": {
+            "description": "One emotion for the whole clip, or a timeline. Resolution is one second.",
+            "oneOf": [
+              {
+                "title": "Single emotion",
+                "type": "string",
+                "example": "happy"
+              },
+              {
+                "title": "Timeline",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/EmotionKeyframe"
+                }
+              }
+            ]
+          },
+          "webhook": {
+            "$ref": "#/components/schemas/WebhookConfig"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "maxProperties": 16,
+            "description": "Returned unchanged on reads and webhooks; never interpreted."
+          }
+        }
+      },
+      "Generation": {
+        "type": "object",
+        "required": [
+          "id",
+          "object",
+          "model",
+          "persona_id",
+          "status",
+          "output_format",
+          "duration_seconds",
+          "credits_estimated",
+          "created_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "object": {
+            "type": "string",
+            "enum": [
+              "generation"
+            ]
+          },
+          "model": {
+            "type": "string"
+          },
+          "persona_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "done",
+              "failed"
+            ],
+            "description": "Terminal states are `done` and `failed`. There is no cancelled state."
+          },
+          "output_format": {
+            "type": "string",
+            "enum": [
+              "mp4",
+              "webm",
+              "mov"
+            ]
+          },
+          "duration_seconds": {
+            "type": "number",
+            "description": "Measured from the uploaded audio, not supplied by the caller."
+          },
+          "credits_estimated": {
+            "type": "number",
+            "description": "Quote at submit. The charge is based on what is actually rendered."
+          },
+          "credits_charged": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Set on `done`."
+          },
+          "output_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "description": "Signed download link, valid 30 minutes. Re-read the generation for a fresh one; it is not stored."
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Set on `failed`."
+          },
+          "metadata": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        }
+      },
+      "GenerationList": {
+        "type": "object",
+        "required": [
+          "object",
+          "data",
+          "has_more"
+        ],
+        "properties": {
+          "object": {
+            "type": "string",
+            "enum": [
+              "list"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Generation"
+            }
+          },
+          "has_more": {
+            "type": "boolean"
+          },
+          "next_cursor": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Pass as `after` for the next page. Opaque."
+          }
+        }
+      }
+    }
+  }
+}

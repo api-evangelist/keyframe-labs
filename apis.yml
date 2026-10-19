@@ -117,6 +117,26 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/keyframe-labs-voices-api-openapi.yml
+- aid: keyframe-labs:keyframe-labs-avatars-api
+  name: Keyframe Labs Avatars API
+  description: The Avatars API from Keyframe Labs — 1 operation(s) for avatars.
+  humanURL: https://docs.keyframelabs.com/api-reference
+  baseURL: https://api.keyframelabs.com/v1
+  tags:
+  - Avatars
+  properties:
+  - type: OpenAPI
+    url: openapi/keyframe-labs-avatars-api-openapi.yml
+- aid: keyframe-labs:keyframe-labs-generations-api
+  name: Keyframe Labs Generations API
+  description: The Generations API from Keyframe Labs — 3 operation(s) for generations.
+  humanURL: https://docs.keyframelabs.com/api-reference
+  baseURL: https://api.keyframelabs.com/v1
+  tags:
+  - Generations
+  properties:
+  - type: OpenAPI
+    url: openapi/keyframe-labs-generations-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

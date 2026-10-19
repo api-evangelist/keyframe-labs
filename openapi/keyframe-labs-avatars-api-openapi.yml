@@ -1,0 +1,67 @@
+openapi: 3.2.0
+info:
+  title: Sessions Avatars API
+  version: 1.2.0
+servers:
+- url: https://api.keyframelabs.com/v1
+tags:
+- name: Avatars
+paths:
+  /avatars:
+    get:
+      tags:
+      - Avatars
+      operationId: listAvatars
+      security:
+      - bearerAuth: []
+      summary: List avatars
+      description: 'Avatars available to your organization. `apis` names the surface that accepts it: ''sessions'' (POST /sessions, embed) takes the persona_id, ''generations'' (POST /generations) takes the persona_id plus `model_id` as `model`.'
+      responses:
+        '200':
+          description: Avatars returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Avatar'
+components:
+  schemas:
+    Avatar:
+      type: object
+      required:
+      - persona_id
+      - slug
+      - display_name
+      - cover_asset_uri
+      - model_id
+      - apis
+      properties:
+        persona_id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+          example: dev-test
+        display_name:
+          type: string
+          example: Dev Test
+        cover_asset_uri:
+          type: string
+          description: Thumbnail image for the avatar.
+        model_id:
+          type: string
+          example: persona-1.5
+          description: The model this avatar runs on; pass as `model` to POST /generations when apis includes 'generations'.
+        apis:
+          type: array
+          items:
+            type: string
+            enum:
+            - sessions
+            - generations
+          description: API surfaces this avatar is callable on.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

@@ -1,9 +1,11 @@
 {
   "provider": "keyframe-labs",
   "sources": [
-    "_original/keyframe-labs-sessions-openapi-original.json"
+    "_original/keyframe-labs-openapi.json"
   ],
   "outputs": [
+    "keyframe-labs-avatars-api-openapi.yml",
+    "keyframe-labs-generations-api-openapi.yml",
     "keyframe-labs-llm-models-api-openapi.yml",
     "keyframe-labs-meet-bots-api-openapi.yml",
     "keyframe-labs-sessions-api-openapi.yml",
@@ -14,17 +16,14 @@
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "keyframe-labs-sessions-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "keyframe-labs-sessions-openapi-original.json: declared missing tag: LLM models",
-    "keyframe-labs-sessions-openapi-original.json: declared missing tag: Meet bots",
-    "keyframe-labs-sessions-openapi-original.json: declared missing tag: Sessions",
-    "keyframe-labs-sessions-openapi-original.json: declared missing tag: Voices",
-    "apis.yml register: already-registered"
+    "keyframe-labs-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "keyframe-labs-openapi.json: declared missing tag: Avatars",
+    "keyframe-labs-openapi.json: declared missing tag: Generations",
+    "keyframe-labs-openapi.json: declared missing tag: LLM models",
+    "keyframe-labs-openapi.json: declared missing tag: Meet bots",
+    "keyframe-labs-openapi.json: declared missing tag: Sessions",
+    "keyframe-labs-openapi.json: declared missing tag: Voices",
+    "apis.yml register: written (+2 apis, 6 total)"
   ],
-  "skipped": [
-    "keyframe-labs-llm-models-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "keyframe-labs-meet-bots-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "keyframe-labs-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "keyframe-labs-voices-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }
